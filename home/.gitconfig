@@ -1,0 +1,20 @@
+[user]
+        name = Lina 
+        email = 61861965+l1na-forever@users.noreply.github.com 
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+[core]
+        excludesfile = ~/.gitignore
+        quotepath = false
+        editor = vim
+[push]
+        default = matching
+
