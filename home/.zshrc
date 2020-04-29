@@ -114,6 +114,17 @@ if [[ $(uname) == 'Linux' ]]; then
 	svdown() {
 	  sudo rm -f /var/service/$1
 	}
+
+	# PyWal
+	# Import colorscheme from 'wal' asynchronously
+	# # &   # Run the process in the background.
+	# # ( ) # Hide shell job control messages.
+	if [[ -a "$HOME/.cache/wal/sequences" ]]; then
+		(cat "$HOME/.cache/wal/sequences" &)
+	fi
+
+	# AwesomeWM
+	alias awesome-restart="echo 'awesome.restart()' | awesome-client"
 fi
 
 zshrl() {
