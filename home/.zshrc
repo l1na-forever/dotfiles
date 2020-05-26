@@ -129,6 +129,13 @@ if [[ $(uname) == 'Linux' ]]; then
 		(cat "$HOME/.cache/wal/sequences" &)
 	fi
 
+	# Backup list of installed packages
+	# TODO - this should be an /etc/xbps.d hook
+	record_installed_packages() {
+		xpkg -m > $HOME/.config/xbps-pkgs
+	}
+	record_installed_packages()
+
 	# AwesomeWM
 	alias awesome-restart="echo 'awesome.restart()' | awesome-client"
 fi
