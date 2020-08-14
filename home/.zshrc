@@ -127,6 +127,14 @@ if [[ $(uname) == 'Linux' ]]; then
 	alias awesome-restart="echo 'awesome.restart()' | awesome-client"
 fi
 
+# Amazon CDD
+if [[ $(hostname) =~ "amazon" ]]; then
+    alias bbr="brazil-build release"
+    alias bb="brazil-build"
+
+    export PATH=~/.toolbox/bin:$PATH:/apollo/env/envImprovement/bin
+fi
+
 zshrl() {
   source $HOME/.zshrc
   echo "Reloaded ~/.zshrc"
