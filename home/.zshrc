@@ -127,8 +127,15 @@ if [[ $(uname) == 'Linux' ]]; then
 	alias awesome-restart="echo 'awesome.restart()' | awesome-client"
 fi
 
+# Amazon Laptop
+if [[ $(hostname) =~ ".*ant.amazon.com" ]]; then
+    alias start="diskutil unmount force ~/devbox; mwinit; sshfs desktop:workplace ~/devbox -o auto_cache -o follow_symlinks"
+
+    export PATH=~/.toolbox/bin:$PATH
+fi
+
 # Amazon CDD
-if [[ $(hostname) =~ "amazon" ]]; then
+if [[ $(hostname) =~ "dev-dsk.*amazon" ]]; then
     alias bbr="brazil-build release"
     alias bb="brazil-build"
 
