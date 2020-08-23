@@ -93,6 +93,7 @@ background() {
 
 if [[ $(uname) == 'Darwin' ]]; then
 	export GOPATH=$HOME/Desktop/Current/code/go
+	alias code="cd $HOME/Desktop/Current/code"
 fi
 
 if [[ $(uname) == 'Linux' ]]; then
