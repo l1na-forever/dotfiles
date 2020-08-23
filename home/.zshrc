@@ -74,6 +74,7 @@ export ZSH_TMUX_AUTOCONNECT="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	rbenv
+	tmux
 )
 
 # Pre-compinit Custom
