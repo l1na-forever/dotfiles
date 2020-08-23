@@ -96,8 +96,11 @@ if [[ $(uname) == 'Darwin' ]]; then
 fi
 
 if [[ $(hostname) =~ 'nonbinary' ]]; then
+	# Don't autostart on my desktop cause I don't use a login manager
 	export ZSH_TMUX_AUTOSTART="false"
 	export ZSH_TMUX_AUTOCONNECT="false"
+
+	export GOPATH=$HOME/code/go
 
 	alias subl="$HOME/.local/bin/sublime_text_3/sublime_text"
 	alias sudosubl='env SUDO_EDITOR="$HOME/.local/bin/sublime_text_3/sublime_text -w" sudoedit'
