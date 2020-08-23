@@ -80,9 +80,8 @@ plugins=(
 # Pre-compinit Custom
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
+true
 
-# oh-my-zsh
-source $ZSH/oh-my-zsh.sh
 source $HOME/.profile
 
 # Custom
@@ -96,7 +95,10 @@ if [[ $(uname) == 'Darwin' ]]; then
 	alias code="cd $HOME/Desktop/Current/code"
 fi
 
-if [[ $(uname) == 'Linux' ]]; then
+if [[ $(hostname) =~ 'nonbinary' ]]; then
+	export ZSH_TMUX_AUTOSTART="false"
+	export ZSH_TMUX_AUTOCONNECT="false"
+
 	alias subl="$HOME/.local/bin/sublime_text_3/sublime_text"
 	alias sudosubl='env SUDO_EDITOR="$HOME/.local/bin/sublime_text_3/sublime_text -w" sudoedit'
 
@@ -160,3 +162,4 @@ zshrl() {
   echo "Reloaded ~/.zshrc"
 }
 
+source $ZSH/oh-my-zsh.sh
