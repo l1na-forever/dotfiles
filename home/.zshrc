@@ -91,6 +91,10 @@ background() {
   "$@" &
 }
 
+if [[ $(uname) == 'Darwin' ]]; then
+	export GOPATH=$HOME/Desktop/Current/code/go
+fi
+
 if [[ $(uname) == 'Linux' ]]; then
 	alias subl="$HOME/.local/bin/sublime_text_3/sublime_text"
 	alias sudosubl='env SUDO_EDITOR="$HOME/.local/bin/sublime_text_3/sublime_text -w" sudoedit'
