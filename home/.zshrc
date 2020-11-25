@@ -92,6 +92,7 @@ background() {
 if [[ $(uname) == 'Darwin' ]]; then
 	export GOPATH=$HOME/Desktop/Current/code/go
 	alias code="cd $HOME/Desktop/Current/code"
+	export PATH=$GOPATH/bin:$PATH
 fi
 
 if [[ $(hostname) =~ 'nonbinary' ]]; then
