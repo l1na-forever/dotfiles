@@ -66,6 +66,7 @@ DISABLE_UPDATE_PROMPT="true"
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/tmux
 export ZSH_TMUX_AUTOSTART="true"
 export ZSH_TMUX_AUTOCONNECT="true"
+export ZSH_TMUX_FIXTERM_WITH_256COLOR="true"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -166,3 +167,10 @@ zshrl() {
 }
 
 source $ZSH/oh-my-zsh.sh
+
+if [[ $(hostname) =~ 'nonbinary' ]]; then
+	# This needs to come dead last. Sets the mystical tmux 256-color bit that just
+	# won't 'take' from tmux.conf.
+	alias tmux='tmux -2'
+fi
+
