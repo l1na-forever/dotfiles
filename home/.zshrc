@@ -103,8 +103,8 @@ if [[ $(hostname) =~ 'nonbinary' ]]; then
 
 	export GOPATH=$HOME/code/go
 
-	alias subl="$HOME/.local/bin/sublime_text_3/sublime_text"
-	alias sudosubl='env SUDO_EDITOR="$HOME/.local/bin/sublime_text_3/sublime_text -w" sudoedit'
+	alias subl="$HOME/.local/bin/sublime_text/sublime_text"
+	alias sudosubl='env SUDO_EDITOR="$HOME/.local/bin/sublime_text/sublime_text -w" sudoedit'
 
 	alias ff="background $HOME/.local/bin/firefox/firefox"
 
