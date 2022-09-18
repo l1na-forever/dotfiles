@@ -1,0 +1,17 @@
+max-visible=4
+default-timeout=7500
+layer=overlay
+
+font=IBM Plex Sans 11
+background-color=#222222dd
+text-color=#eeeeee
+padding=14
+width=325
+height=125
+border-color=#dd1bda
+border-size=1
+border-radius=4
+progress-color=source #b251a6dd
+
+[mode=do-not-disturb]
+invisible=1
