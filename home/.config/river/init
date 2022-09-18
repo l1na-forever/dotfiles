@@ -1,0 +1,206 @@
+#!/bin/bash
+
+#wlr-randr --output "DP-1" --scale 2 --pos 0,0   
+#wlr-randr --output "DP-3" --scale 2 --pos 1920,0
+kanshi &
+
+wallpaper="$HOME/Pictures/Wallpapers/wallhaven-13g6ew.jpg"
+
+# Color Scheme
+#
+# https://colorbox.io/?c0=%26p%24s%24%3D11%26p%24h%24st%24%3D144%26p%24h%24e%24%3D328%26p%24h%24c%24%3Deqo%26p%24sa%24st%24%3D0.16%26p%24sa%24e%24%3D1%26p%24sa%24r%24%3D1%26p%24sa%24c%24%3Deqo%26p%24b%24st%24%3D0.9%26p%24b%24e%24%3D0.52%26p%24b%24c%24%3Dequi%26o%24n%24%3DBlue%26o%24ms%24%3D0%2C1%26o%24ro%24%3Dcw
+color1=0x313131 # 0
+color2=0xaee5d4  # 0.5
+color3=0x9ce5e3  # 1
+color4=0x8bcee4  # 1.5
+color5=0x79abe4  # 2
+# 3:1, 4.5:1 (#FFFFFF) ↓
+color6=0x5d5ae3  # 3
+color7=0x8740e2  # 4
+color8=0xb62be0  # 5
+color9=0xdd1bda  # 6
+color10=0xd810b0 # 7
+color11=0xcd088c # 8
+color12=0xb6026b # 9
+color13=0x850047 # 10
+
+activeOpacity=1
+inactiveOpacity=0.75
+shadowOpacity=0.44
+
+colorActiveBorder="$color10"
+colorInactiveBorder="$color1"
+colorUrgentBorder="$color12"
+
+# App Preferences
+launcher="$HOME/.local/bin/fuzzel-themed.sh"
+music="spotifyd"
+browser="MOZ_ENABLE_WAYLAND=1 $HOME/.local/bin/firefox/firefox"
+filemanager="thunar"
+editor="neovide"
+term="KITTY_ENABLE_WAYLAND=1 kitty"
+
+# River Styling
+riverctl border-color-focused "$colorActiveBorder" &
+riverctl border-color-unfocused "$colorInactiveBorder" &
+riverctl border-color-urgent "$colorUrgentBorder" &
+riverctl border-width 1 &
+# Opacity: https://github.com/riverwm/river/pull/360/files
+
+# River Input
+riverctl set-repeat 15 300 &
+riverctl hide-cursor timeout 0 &
+riverctl hide-cursor when-typing disabled &
+riverctl focus-follows-cursor disabled &
+riverctl set-cursor-warp on-output-change &
+
+# App Keybindings
+riverctl map normal Super Return spawn "$term" &
+riverctl map normal Super W      spawn "$browser" &
+riverctl map normal Super A      spawn "$filemanager" &
+riverctl map normal Super E      spawn "$editor" &
+riverctl map normal Super D      spawn "$launcher" &
+
+# Audio Keybindings
+riverctl map normal Super+Alt A spawn "spt playback --share-album | wl-copy && dunstify 'Copied album URL'" &
+riverctl map normal Super+Alt S spawn "spt playback --share-track | wl-copy && dunstify 'Copied track URL'" &
+riverctl map normal Super+Alt L spawn "spt playback --like -f  '♥ %t - %a ♥' | xargs -d '\n' dunstify" &
+riverctl map normal Super+Alt Space spawn "playerctl -p $music play-pause" &
+riverctl map normal Super+Alt Left spawn "playerctl -p $music previous" &
+riverctl map normal Super+Alt Right spawn "playerctl -p $music next" &
+riverctl map normal Super+Alt 1 spawn "~/.local/bin/pamixer-default-sink.sh Groove" &
+riverctl map normal Super+Alt 2 spawn "~/.local/bin/pamixer-default-sink.sh Starship" &
+riverctl map normal None XF86AudioLowerVolume spawn "~/.local/bin/pamixer-volume.sh decrease" &
+riverctl map normal None XF86AudioRaiseVolume spawn "~/.local/bin/pamixer-volume.sh increase" &
+riverctl map normal None XF86AudioMute spawn "~/.local/bin/pamixer-volume.sh toggle-mute" &
+riverctl map normal None XF86AudioPlay spawn "playerctl -p $music play-pause" &
+riverctl map normal None XF86AudioPrev spawn "playerctl -p $music previous" &
+riverctl map normal None XF86AudioNext spawn "playerctl -p $music next" &
+
+# Screenshot Keybindings
+riverctl map normal None Print          spawn "grimshot save area ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S%N).webp && dunstify 'Screenshot saved'" &
+riverctl map normal Control Print       spawn "grimshot copy area && dunstify 'Screenshot copied to clipboard'" &
+# riverctl map normal Alt Print           spawn "grimshot save area ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).webp && dunstify 'Region-shot saved'" &
+# riverctl map normal Super Print         spawn "grimshot copy screen && dunstify 'Screen copied to clipboard'" &
+# riverctl map normal Super+Control Print spawn "grimshot copy window && dunstify 'Window copied to clipboard'" &
+# riverctl map normal Super+Alt Print     spawn "grimshot copy area && dunstify 'Region copied to clipboard'" &
+
+# Session Keybindings
+riverctl map normal Super+Shift D spawn "dunstify 'TODO Implement Do-Not-Disturb'"
+riverctl map normal Super+Shift Q close & # closes focused view
+riverctl map normal Super Escape exit & # exits river
+
+# Focus Keybindings
+riverctl map normal Super H         focus-view previous &
+riverctl map normal Super L         focus-view next &
+riverctl map normal Super+Shift H   swap previous &
+riverctl map normal Super+Shift L   swap next &
+riverctl map normal Super Tab       focus-output next &
+riverctl map normal Super+Shift Tab send-to-output next &
+
+# Tiling Keybinds
+riverctl map normal Super J       send-layout-cmd rivercarro "main-ratio -0.05" &
+riverctl map normal Super K       send-layout-cmd rivercarro "main-ratio +0.05" &
+riverctl map normal Super+Shift J send-layout-cmd rivercarro "main-count +1" &
+riverctl map normal Super+Shift K send-layout-cmd rivercarro "main-count -1" &
+riverctl map normal Super Up      send-layout-cmd rivercarro "main-location top" &
+riverctl map normal Super Right   send-layout-cmd rivercarro "main-location right" &
+riverctl map normal Super Down    send-layout-cmd rivercarro "main-location bottom" &
+riverctl map normal Super Left    send-layout-cmd rivercarro "main-location left" &
+
+# View Keybinds
+#riverctl map normal Super+Alt H  move left 100 &
+#riverctl map normal Super+Alt J  move down 100 &
+#riverctl map normal Super+Alt K  move up 100 &
+#riverctl map normal Super+Alt L  move right 100 &
+riverctl map normal Super+Control H resize horizontal -100 &
+riverctl map normal Super+Control J resize vertical 100 &
+riverctl map normal Super+Control K resize vertical -100 &
+riverctl map normal Super+Control L resize horizontal 100 &
+
+# View Mode Keybindings
+riverctl map normal Super V toggle-float &
+riverctl map normal Super F toggle-fullscreen &
+
+# Mouse Bindings
+riverctl map-pointer normal Super BTN_LEFT  move-view &
+riverctl map-pointer normal Super BTN_RIGHT resize-view &
+
+# Tags
+for i in $(seq 1 8)
+do
+    tags=$((1 << ($i - 1)))
+
+    # Super+[1-9] to focus tag [0-8]
+    riverctl map normal Super $i set-focused-tags $tags &
+
+    # Super+Shift+[1-9] to tag focused view with tag [0-8]
+    riverctl map normal Super+Shift $i set-view-tags $tags &
+
+    # Super+Ctrl+[1-9] to toggle focus of tag [0-8]
+    riverctl map normal Super+Control $i toggle-focused-tags $tags &
+
+    # Super+Shift+Ctrl+[1-9] to toggle tag [0-8] of focused view
+    # riverctl map normal Super+Shift+Control $i toggle-view-tags $tags &
+done
+
+riverctl map normal Super S focus-previous-tags &
+riverctl map normal Super+Shift S send-to-previous-tags &
+
+riverctl map normal Super+Shift Z zoom &
+
+# Scratchpad
+scratch_tag=$((1 << 20 )) # use one of the last tags
+riverctl map normal Super Grave spawn "riverctl toggle-focused-tags $scratch_tag && riverctl focus-view next"
+riverctl map normal Super+Shift Grave set-view-tags "$scratch_tag"
+
+# Float rules
+riverctl float-filter-add app-id float &
+riverctl float-filter-add app-id "thunar" &
+riverctl float-filter-add app-id "fuzzel" &
+riverctl float-filter-add app-id "mpv" &
+riverctl float-filter-add app-id "imv" &
+
+
+# Set spawn tagmask to ensure new windows don't have the scratchpad tag unless
+# explicitly set.
+#all_but_scratch_tag=$(( ((1 << 32) - 1) ^ $scratch_tag ))
+#riverctl spawn-tagmask ${all_but_scratch_tag}
+
+# Trick GTK3 apps into hiding their titlebars
+# https://www.reddit.com/r/i3wm/comments/6in8m1/did_you_know_xdg_current_desktop/
+# https://github.com/angelofallars/dotfiles/blob/main/river/init#L5
+#XDG_CURRENT_DESKTOP="Unity"
+
+# Set up environment variables to be plumbed through to apps launched in river
+export_dbus_variables() {
+  local VARIABLES="DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
+  riverctl spawn "dbus-update-activation-environment ${VARIABLES:- --all}"
+}
+export_dbus_variables
+
+# Autostarts
+start_audio() {
+  pipewire &
+  pipewire-pulse &
+  if [ -x "$(command -v wireplumber)" ]; then
+    wireplumber &
+  fi
+  sleep 2; ~/.local/bin/pipewire-setup.sh &
+
+  pkill spotifyd; sleep 3; spotifyd &
+}
+start_audio &
+swaybg -i "$wallpaper" &
+pkill openrgb; openrgb --startminimized --noautoconnect &
+blueman-applet &
+gammastep-indicator &
+mako &
+pkill mpris-notifier; mpris-notifier &
+river-tag-overlay.sh &
+xrdb -load ~/.Xresources-wayland &
+
+# Set and exec into the default layout generator, rivercarro.
+# River will send the process group of the init executable SIGTERM on exit.
+riverctl default-layout rivercarro
+exec rivercarro -no-smart-gaps -inner-gaps 6 -outer-gaps 18 -main-ratio 0.55
