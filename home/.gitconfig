@@ -1,22 +1,44 @@
 [user]
-        name = Lina 
-        email = 61861965+l1na-forever@users.noreply.github.com 
+    name = Lina 
+    email = 61861965+l1na-forever@users.noreply.github.com 
+
 [alias]
-  co = checkout
-  ci = commit
-  st = status
-  br = branch
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    ls = ls-tree --full-tree -r 
 
 [core]
-        excludesfile = ~/.gitignore
-        quotepath = false
-        editor = vim
+    excludesfile = ~/.gitignore
+    quotepath = false
+    editor = vim
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[add.interactive]
+    useBuiltin = false
+
 [push]
-        default = matching
+    default = matching
 
 [pull]
-	ff = only
+    ff = only
+
+[merge]
+    #tool = meld
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[delta]
+    navigate = true
+    light = false
+

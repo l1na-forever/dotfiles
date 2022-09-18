@@ -96,22 +96,20 @@ if [[ $(uname) == 'Darwin' ]]; then
 	export PATH=$GOPATH/bin:$PATH
 fi
 
-if [[ $(hostname) =~ 'nonbinary' ]]; then
+if [[ $(hostname) =~ 'threadchan' ]]; then
 	# Don't autostart on my desktop cause I don't use a login manager
 	export ZSH_TMUX_AUTOSTART="false"
 	export ZSH_TMUX_AUTOCONNECT="false"
 
 	export GOPATH=$HOME/code/go
-
-	alias subl="$HOME/.local/bin/sublime_text/sublime_text"
-	alias sudosubl='env SUDO_EDITOR="$HOME/.local/bin/sublime_text/sublime_text -w" sudoedit'
+    export MANPATH=$MANPATH:~/.local/share/man    
 
 	alias ff="background $HOME/.local/bin/firefox/firefox"
 
 	alias xbpsi="sudo xbps-install -S "
 	alias xbpsr="sudo xbps-remove "
 	alias xbpss="xbps-query -R -s "
-	alias xbpsu="sudo xbps-install -Syu"
+	alias xbpsu="sudo xbps-install -Su"
 
 	alias svps="sudo sv status /var/service/*"
 	svup() {
@@ -127,12 +125,24 @@ if [[ $(hostname) =~ 'nonbinary' ]]; then
 	  sudo rm -f /var/service/$1
 	}
 
+	# $1: screenshot path
+	split_screenshot() {
+	  # Example: convert 2021.12.29-16.06.59.screenshot.png -crop 50%x100% +repage 2021.12.29-16.06.59.screenshot_%d.png
+	  convert "$1" -crop "50%x100%" +repage "$1:t_%d.$1:h"
+	}
+
+	# $1: source path
+	# $2: destination path
+	seedboxcp() {
+	  rsync -e ssh -rauP whatbox:"$1" "$2"
+	}
+
 	# PyWal
-	# Import colorscheme from 'wal' asynchronously
+	# Import colorscheme from 'wal' asynchronously, if we're running X
 	# # &   # Run the process in the background.
 	# # ( ) # Hide shell job control messages.
-	if [[ -a "$HOME/.cache/wal/sequences" ]]; then
-		(cat "$HOME/.cache/wal/sequences" &)
+	if [[ -a "$HOME/.cache/wal/sequences" && $XAUTHORITY ]]; then
+	    (cat "$HOME/.cache/wal/sequences" &)
 	fi
 
 	# Backup list of installed packages
@@ -143,24 +153,18 @@ if [[ $(hostname) =~ 'nonbinary' ]]; then
 	record_installed_packages()
 
 	# AwesomeWM
-	alias awesome-restart="echo 'awesome.restart()' | awesome-client"
+	awesomewm-restart() {
+	  echo 'awesome.restart()' | awesome-client
+	}
+	
+	# Prefer nvim :)
+	alias vim=nvim
+	alias nv=neovide
+
+	# docker and docker stuff
+    alias drun='docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -v $(pwd):/pwd'
+    alias sd='drun --name stable-diffusion l1naforever/stable-diffusion-rocm:latest'
 fi
-
-# Amazon Laptop
-if [[ $(hostname) =~ ".*ant.amazon.com" ]]; then
-    alias start="diskutil unmount force ~/devbox; mwinit; sshfs desktop:workplace ~/devbox -o auto_cache -o follow_symlinks"
-
-    export PATH=~/.toolbox/bin:$PATH
-fi
-
-# Amazon CDD
-if [[ $(hostname) =~ "dev-dsk.*amazon" ]]; then
-    alias bbr="brazil-build release"
-    alias bb="brazil-build"
-
-    export PATH=~/.toolbox/bin:$PATH:/apollo/env/envImprovement/bin
-fi
-
 zshrl() {
   source $HOME/.zshrc
   echo "Reloaded ~/.zshrc"
@@ -168,7 +172,7 @@ zshrl() {
 
 source $ZSH/oh-my-zsh.sh
 
-if [[ $(hostname) =~ 'nonbinary' ]]; then
+if [[ $(hostname) =~ 'threadchan' ]]; then
 	# This needs to come dead last. Sets the mystical tmux 256-color bit that just
 	# won't 'take' from tmux.conf.
 	alias tmux='tmux -2'
