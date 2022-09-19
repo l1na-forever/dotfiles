@@ -1,0 +1,2 @@
+#!/bin/bash
+restic-backup.sh >> /var/log/restic-backup.log 2>&1

@@ -1,0 +1,2 @@
+#!/bin/zsh
+tldr --update >> /var/log/tldr-update.log 2>&1
