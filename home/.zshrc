@@ -163,7 +163,7 @@ if [[ $(hostname) =~ 'threadchan' ]]; then
 
 	# docker and docker stuff
     alias drun='docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -v $(pwd):/pwd'
-    alias sd='drun --name stable-diffusion l1naforever/stable-diffusion-rocm:latest'
+    alias sd='drun --name sd l1naforever/stable-diffusion-rocm:baked'
 fi
 zshrl() {
   source $HOME/.zshrc
