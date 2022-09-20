@@ -1,2 +1,6 @@
 #!/bin/zsh
-tldr --update >> /var/log/tldr-update.log 2>&1
+LOG="/var/log/tldr-update.log"
+source $HOME/.profile
+echo "[$(date)] Started tealdeer update" >> $LOG
+tldr --update >> $LOG 2>&1
+

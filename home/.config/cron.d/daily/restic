@@ -1,2 +1,5 @@
 #!/bin/bash
-restic-backup.sh >> /var/log/restic-backup.log 2>&1
+LOG="/var/log/restic-backup.log"
+source $HOME/.profile
+echo "[$(date)] Started daily backup" >> $LOG
+restic-backup.sh >> $LOG 2>&1
