@@ -78,7 +78,7 @@ riverctl map normal None XF86AudioPrev spawn "playerctl -p $music previous" &
 riverctl map normal None XF86AudioNext spawn "playerctl -p $music next" &
 
 # Screenshot Keybindings
-riverctl map normal None Print          spawn "grimshot save area ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S%N).webp && dunstify 'Screenshot saved'" &
+riverctl map normal None Print          spawn "grimshot.sh" & 
 riverctl map normal Control Print       spawn "grimshot copy area && dunstify 'Screenshot copied to clipboard'" &
 # riverctl map normal Alt Print           spawn "grimshot save area ~/Pictures/Screenshots/screenshot_$(date +%Y%m%d_%H%M%S).webp && dunstify 'Region-shot saved'" &
 # riverctl map normal Super Print         spawn "grimshot copy screen && dunstify 'Screen copied to clipboard'" &
