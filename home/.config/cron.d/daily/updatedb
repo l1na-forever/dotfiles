@@ -1,0 +1,5 @@
+#!/bin/bash
+LOG="/var/log/plocate-updatedb.log"
+source $HOME/.profile
+echo "[$(date)] Started plocate's updatedb" >> $LOG
+plocate-updatedb.sh >> $LOG 2>&1
