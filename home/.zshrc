@@ -111,7 +111,7 @@ if [[ $(hostname) =~ 'threadchan' ]]; then
 	alias xbpss="xbps-query -R -s "
 	alias xbpsu="sudo xbps-install -Su"
 
-	alias svps="sudo sv status /var/service/*"
+	alias svps="sv status ~/service/* ; sudo sv status /var/service/*"
 	svup() {
 	  dir=/etc/sv/"$1"
 	  if [ ! -d "$dir" ]

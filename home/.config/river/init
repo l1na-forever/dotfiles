@@ -187,18 +187,15 @@ start_audio() {
     wireplumber &
   fi
   sleep 2; ~/.local/bin/pipewire-setup.sh &
-
-  pkill spotifyd; sleep 3; spotifyd &
 }
 start_audio &
 swaybg -i "$wallpaper" &
-pkill openrgb; openrgb --startminimized --noautoconnect &
 blueman-applet &
 gammastep-indicator &
 mako &
-pkill mpris-notifier; mpris-notifier &
 river-tag-overlay.sh &
 xrdb -load ~/.Xresources-wayland &
+runsvdir "$HOME/service" &
 
 # Set and exec into the default layout generator, rivercarro.
 # River will send the process group of the init executable SIGTERM on exit.
