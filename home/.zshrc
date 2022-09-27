@@ -7,174 +7,75 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
 ZSH_THEME="nanotech"
-#ZSH_THEME="theunraveler"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="false"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to automatically update without prompting.
 DISABLE_UPDATE_PROMPT="true"
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+ZSH_TMUX_AUTOSTART="false"
+ZSH_TMUX_AUTOCONNECT="false"
+ZSH_TMUX_FIXTERM_WITH_256COLOR="true"
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# tmux plugin config
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/tmux
-export ZSH_TMUX_AUTOSTART="true"
-export ZSH_TMUX_AUTOCONNECT="true"
-export ZSH_TMUX_FIXTERM_WITH_256COLOR="true"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	rbenv
 	tmux
 )
 
-# Pre-compinit Custom
+# * load homeshick (dotfile manager) *
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
 
+# * set up user paths *
 source $HOME/.profile
 
-# Custom
+#
+# * exports & aliases *
+#
+export GOPATH=$HOME/code/go
+alias ff="$HOME/.local/bin/firefox/firefox > /dev/null 2&>1 & disown"
+alias vim=nvim
+alias nv=neovide
+alias drun='docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -v $(pwd):/pwd'
+alias sd='drun --name sd l1naforever/stable-diffusion-rocm:baked'
+alias locate="locate -d $LOCATE_PATH " # I don't maintain a system-wide locate db, so set mine as the *only* one
+alias tmux='tmux -2' # force 256 color mode
 
-background() {
-  "$@" &
+#
+# * xbps helpers*
+#
+# TODO - remove, just use xtools
+alias xbpsi="sudo xbps-install -S "
+alias xbpsr="sudo xbps-remove "
+alias xbpss="xbps-query -R -s "
+alias xbpsu="sudo xbps-install -Su"
+
+#
+# * runit helpers *
+#
+alias svps="sv status ~/service/* ; sudo sv status /var/service/*"
+svup() {
+  dir=/etc/sv/"$1"
+  if [ ! -d "$dir" ]
+  then
+    echo "Path $dir doesn't exist"
+    return
+  fi
+  sudo ln -s "$dir" /var/service/
+}
+svdown() {
+  sudo rm -f /var/service/$1
 }
 
-if [[ $(uname) == 'Darwin' ]]; then
-	export GOPATH=$HOME/Desktop/Current/code/go
-	alias code="cd $HOME/Desktop/Current/code"
-	export PATH=$GOPATH/bin:$PATH
-fi
-
-if [[ $(hostname) =~ 'threadchan' ]]; then
-	# Don't autostart on my desktop cause I don't use a login manager
-	export ZSH_TMUX_AUTOSTART="false"
-	export ZSH_TMUX_AUTOCONNECT="false"
-
-	export GOPATH=$HOME/code/go
-    export MANPATH=$MANPATH:~/.local/share/man    
-
-	alias ff="background $HOME/.local/bin/firefox/firefox"
-
-	alias xbpsi="sudo xbps-install -S "
-	alias xbpsr="sudo xbps-remove "
-	alias xbpss="xbps-query -R -s "
-	alias xbpsu="sudo xbps-install -Su"
-
-	alias svps="sv status ~/service/* ; sudo sv status /var/service/*"
-	svup() {
-	  dir=/etc/sv/"$1"
-	  if [ ! -d "$dir" ]
-	  then
-	    echo "Path $dir doesn't exist"
-	    return
-	  fi
-	  sudo ln -s "$dir" /var/service/
-	}
-	svdown() {
-	  sudo rm -f /var/service/$1
-	}
-
-	# $1: screenshot path
-	split_screenshot() {
-	  # Example: convert 2021.12.29-16.06.59.screenshot.png -crop 50%x100% +repage 2021.12.29-16.06.59.screenshot_%d.png
-	  convert "$1" -crop "50%x100%" +repage "$1:t_%d.$1:h"
-	}
-
-	# $1: source path
-	# $2: destination path
-	seedboxcp() {
-	  rsync -e ssh -rauP whatbox:"$1" "$2"
-	}
-
-	# PyWal
-	# Import colorscheme from 'wal' asynchronously, if we're running X
-	# # &   # Run the process in the background.
-	# # ( ) # Hide shell job control messages.
-	if [[ -a "$HOME/.cache/wal/sequences" && $XAUTHORITY ]]; then
-	    (cat "$HOME/.cache/wal/sequences" &)
-	fi
-
-	# Backup list of installed packages
-	# TODO - this should be an /etc/xbps.d hook
-	record_installed_packages() {
-		xpkg -m > $HOME/.config/xbps-pkgs
-	}
-	record_installed_packages()
-
-	# AwesomeWM
-	awesomewm-restart() {
-	  echo 'awesome.restart()' | awesome-client
-	}
-	
-	# Prefer nvim :)
-	alias vim=nvim
-	alias nv=neovide
-
-	# docker and docker stuff
-    alias drun='docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -v $(pwd):/pwd'
-    alias sd='drun --name sd l1naforever/stable-diffusion-rocm:baked'
-fi
 zshrl() {
   source $HOME/.zshrc
   echo "Reloaded ~/.zshrc"
 }
 
 source $ZSH/oh-my-zsh.sh
-
-if [[ $(hostname) =~ 'threadchan' ]]; then
-	# This needs to come dead last. Sets the mystical tmux 256-color bit that just
-	# won't 'take' from tmux.conf.
-	alias tmux='tmux -2'
-fi
 
