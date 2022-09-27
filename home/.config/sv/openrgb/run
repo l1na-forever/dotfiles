@@ -1,2 +1,2 @@
 #!/bin/bash
-openrgb --startminimized --noautoconnect
+exec openrgb --startminimized --noautoconnect
