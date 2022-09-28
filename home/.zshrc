@@ -38,7 +38,7 @@ source $HOME/.profile
 # * exports & aliases *
 #
 export GOPATH=$HOME/code/go
-alias ff="$HOME/.local/bin/firefox/firefox > /dev/null 2&>1 & disown"
+alias ff="$HOME/.local/bin/firefox/firefox > /dev/null 2>&1 & disown"
 alias vim=nvim
 alias nv=neovide
 alias drun='docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -v $(pwd):/pwd'
