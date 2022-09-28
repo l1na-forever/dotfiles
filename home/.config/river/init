@@ -1,9 +1,5 @@
 #!/bin/bash
 
-#wlr-randr --output "DP-1" --scale 2 --pos 0,0   
-#wlr-randr --output "DP-3" --scale 2 --pos 1920,0
-kanshi &
-
 wallpaper="$HOME/Pictures/Wallpapers/wallhaven-13g6ew.jpg"
 
 # Color Scheme
