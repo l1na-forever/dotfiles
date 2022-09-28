@@ -161,17 +161,6 @@ riverctl float-filter-add app-id "fuzzel" &
 riverctl float-filter-add app-id "mpv" &
 riverctl float-filter-add app-id "imv" &
 
-
-# Set spawn tagmask to ensure new windows don't have the scratchpad tag unless
-# explicitly set.
-#all_but_scratch_tag=$(( ((1 << 32) - 1) ^ $scratch_tag ))
-#riverctl spawn-tagmask ${all_but_scratch_tag}
-
-# Trick GTK3 apps into hiding their titlebars
-# https://www.reddit.com/r/i3wm/comments/6in8m1/did_you_know_xdg_current_desktop/
-# https://github.com/angelofallars/dotfiles/blob/main/river/init#L5
-#XDG_CURRENT_DESKTOP="Unity"
-
 # Set up environment variables to be plumbed through to apps launched in river
 export_dbus_variables() {
   local VARIABLES="DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
@@ -179,23 +168,13 @@ export_dbus_variables() {
 }
 export_dbus_variables
 
-# Autostarts
-start_audio() {
-  pipewire &
-  pipewire-pulse &
-  if [ -x "$(command -v wireplumber)" ]; then
-    wireplumber &
-  fi
-  sleep 2; ~/.local/bin/pipewire-setup.sh &
-}
-start_audio &
+# Userland runit services (common to wayland)
+runsvdir "$HOME/service" &
+
+# Desktop utilities and settings application (used for river)
 swaybg -i "$wallpaper" &
-blueman-applet &
-gammastep-indicator &
-mako &
 river-tag-overlay.sh &
 xrdb -load ~/.Xresources-wayland &
-runsvdir "$HOME/service" &
 
 # Set and exec into the default layout generator, rivercarro.
 # River will send the process group of the init executable SIGTERM on exit.

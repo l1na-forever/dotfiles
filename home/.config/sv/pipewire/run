@@ -1,0 +1,7 @@
+#!/bin/bash
+setup() {
+    sleep 1 && ~/.local/bin/pipewire-setup.sh
+}
+setup &
+exec pipewire
+
