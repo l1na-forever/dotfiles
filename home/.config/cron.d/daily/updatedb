@@ -2,4 +2,8 @@
 LOG="/var/log/plocate-updatedb.log"
 source $HOME/.profile
 echo "[$(date)] Started plocate's updatedb" >> $LOG
+
+ulimit -n 32000
 plocate-updatedb.sh >> $LOG 2>&1
+echo "[$(date)] Finished (exit code '$?')" >> $LOG
+
