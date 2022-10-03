@@ -40,7 +40,7 @@ source $HOME/.profile
 export GOPATH=$HOME/code/go
 alias ff="$HOME/.local/bin/firefox/firefox > /dev/null 2>&1 & disown"
 alias vim=nvim
-alias nv=neovide
+alias nv=neovide --multigrid
 alias drun='docker run -it --network=host --device=/dev/kfd --device=/dev/dri --group-add=video --ipc=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -v $(pwd):/pwd'
 alias sd='drun --name sd l1naforever/stable-diffusion-rocm:baked'
 alias locate="locate -d $LOCATE_PATH " # I don't maintain a system-wide locate db, so set mine as the *only* one
