@@ -1,0 +1,17 @@
+theme = 'fleetish'
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+
+[keys.normal]
+C-c = "normal_mode" # i spam ctrl-c a lot :\
+C-s = ":w"
+C-z = "undo"
+C-y = "redo"
+"{" = "goto_prev_paragraph"
+"}" = "goto_next_paragraph"
+C-r = ":reflow 81"
+
+[keys.insert]
+C-c = "normal_mode"
