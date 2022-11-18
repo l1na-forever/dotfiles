@@ -1,0 +1,3 @@
+#!/bin/bash
+wallpaper="$HOME/Pictures/Wallpapers/wallhaven-g7rprd-1.jpg"
+exec swaybg -i "$wallpaper"
