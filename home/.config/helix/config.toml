@@ -1,4 +1,4 @@
-theme = 'fleetish'
+theme = 'rose_pine_transparent'
 
 [editor.cursor-shape]
 insert = "bar"
