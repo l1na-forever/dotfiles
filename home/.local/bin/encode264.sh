@@ -9,13 +9,14 @@ _help() {
 
 EOF
 }
-
+"
 input=$1
 output=$2
-ffmpeg -i $input \
+
+ffmpeg"-i "$input" \
 			 -c:v libx264 \
 			 -c:a copy \
 			 -preset slow \
 			 -crf 28 \
-			 $output
+			 "$output"
 
