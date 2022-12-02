@@ -80,7 +80,8 @@ riverctl map normal Control Print       spawn "grimshot copy area && dunstify 'S
 # riverctl map normal Super+Alt Print     spawn "grimshot copy area && dunstify 'Region copied to clipboard'" &
 
 # Session Keybindings
-riverctl map normal Super+Shift D spawn "dunstify 'TODO Implement Do-Not-Disturb'"
+# riverctl map normal Super+Shift D spawn "~/.local/bin/toggle-sv.sh mako" # do-not-disturb
+riverctl map normal Super G spawn "~/.local/bin/toggle-sv.sh gammastep" 
 riverctl map normal Super+Shift Q close & # closes focused view
 riverctl map normal Super Escape exit & # exits river
 
