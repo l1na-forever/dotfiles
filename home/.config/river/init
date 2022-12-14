@@ -156,6 +156,9 @@ riverctl float-filter-add app-id "fuzzel" &
 riverctl float-filter-add app-id "mpv" &
 riverctl float-filter-add app-id "imv" &
 
+# Set default layout namespace; layout manager started with runit
+riverctl default-layout rivercarro
+
 # Set up environment variables to be plumbed through to apps launched in river
 export_dbus_variables() {
   local VARIABLES="DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
@@ -163,14 +166,6 @@ export_dbus_variables() {
 }
 export_dbus_variables
 
-# Userland runit services (common to wayland)
-runsvdir "$HOME/service" &
-
-# Desktop utilities and settings application (used for river)
-river-tag-overlay.sh &
-xrdb -load ~/.Xresources-wayland &
-
 # Set and exec into the default layout generator, rivercarro.
 # River will send the process group of the init executable SIGTERM on exit.
-riverctl default-layout rivercarro
-exec rivercarro -no-smart-gaps -inner-gaps 6 -outer-gaps 18 -main-ratio 0.55
+exec runsvdir "$HOME/service"

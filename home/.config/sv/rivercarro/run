@@ -1,0 +1,2 @@
+#!/bin/bash
+exec rivercarro -no-smart-gaps -inner-gaps 6 -outer-gaps 18 -main-ratio 0.55
