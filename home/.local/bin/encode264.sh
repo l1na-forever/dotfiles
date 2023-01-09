@@ -23,4 +23,3 @@ ffmpeg -i "$input" \
 			 -preset slow \
 			 -crf 28 \
 			 "$output"
-
