@@ -19,7 +19,7 @@ watermark="$2"
 output="$3"
 
 _PADDING="25"
-_SCALE="0.15"
+_SCALE="0.17"
 _ALPHA="0.8"
 
 ffmpeg -i "$input" \
