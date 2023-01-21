@@ -18,3 +18,4 @@ fuzzel \
     --border-width 1 \
     --border-radius 4 \
     --dpi-aware yes \
+    "$@"

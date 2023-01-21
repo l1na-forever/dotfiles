@@ -33,6 +33,7 @@ browser="MOZ_ENABLE_WAYLAND=1 $HOME/.local/bin/firefox/firefox"
 filemanager="thunar"
 editor="neovide"
 term="KITTY_ENABLE_WAYLAND=1 kitty"
+emojipicker="$HOME/.local/bin/emoji-menu.sh"
 
 # River Styling
 riverctl border-color-focused "$colorActiveBorder" &
@@ -52,7 +53,7 @@ riverctl set-cursor-warp on-output-change &
 riverctl map normal Super Return spawn "$term" &
 riverctl map normal Super W      spawn "$browser" &
 riverctl map normal Super A      spawn "$filemanager" &
-riverctl map normal Super E      spawn "$editor" &
+riverctl map normal Super E      spawn "$emojipicker" &
 riverctl map normal Super D      spawn "$launcher" &
 
 # Audio Keybindings
