@@ -1,5 +1,5 @@
 #!/bin/bash
-# From https://github.com/galizur/.dotfiles
+# Originally from https://github.com/galizur/.dotfiles
 
 set -e
 
@@ -21,8 +21,5 @@ get_emojis
 
 emoji=$(cat "$FILE" | fuzzel-themed.sh -d -p " Search Emoji: ")
 emoji_icon=$(echo $emoji | cut -d ' ' -f1)
-$(echo -n "$emoji_icon" | wl-copy)
-
-dunstify -h string:x-canonical-private-synchronous:emoji \
-            "$emoji_icon copied to clipboard"
+wtype "$emoji_icon"
 
