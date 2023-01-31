@@ -45,6 +45,7 @@ alias drun='docker run -it --network=host --device=/dev/kfd --device=/dev/dri --
 alias sd='drun --name sd l1naforever/stable-diffusion-rocm:baked'
 alias locate="locate -d $LOCATE_PATH " # I don't maintain a system-wide locate db, so set mine as the *only* one
 alias tmux='tmux -2' # force 256 color mode
+alias void="KEYFILE=$HOME/.config/voidmap/keyfile void"
 
 #
 # * xbps helpers*
