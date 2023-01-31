@@ -15,3 +15,7 @@ C-r = ":reflow 81"
 
 [keys.insert]
 C-c = "normal_mode"
+
+[keys.select]
+C-c = "normal_mode"
+
