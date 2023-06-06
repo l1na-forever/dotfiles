@@ -4,6 +4,9 @@ theme = 'rose_pine_transparent'
 insert = "bar"
 normal = "block"
 
+[editor.soft-wrap]
+enable = true
+
 [keys.normal]
 C-c = "normal_mode" # i spam ctrl-c a lot :\
 C-s = ":w"

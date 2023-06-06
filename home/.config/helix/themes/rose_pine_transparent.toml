@@ -1,11 +1,6 @@
-# Author: RayGervais<raygervais@hotmail.ca>
-# Author: ChrisHa<chunghha@users.noreply.github.com>
-# Author: ATahaBaki<atahabaki@pm.me>
-# This theme is based on rose_pine theme. I just converted their
-# rose_pine theme.
+inherits = "rose_pine"
 
 "ui.background" = { }
-#"ui.background" = { bg = "base" }
 "ui.menu" = { fg = "text", bg = "overlay" }
 "ui.menu.selected" = { fg = "iris", bg = "surface" }
 "ui.linenr" = {fg = "subtle" }
