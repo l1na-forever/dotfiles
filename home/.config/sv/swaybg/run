@@ -1,3 +1,3 @@
 #!/bin/bash
-wallpaper="$HOME/Pictures/Wallpapers/wallhaven-l88ker.jpg"
+wallpaper=$(cat "$HOME/.config/swaybg/wallpaper")
 exec swaybg -i "$wallpaper" -m fill
