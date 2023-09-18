@@ -1,3 +1,10 @@
 #!/bin/bash
+noisetorch() 
+{
+  sleep 2
+  command noisetorch -i &
+}
+
+noisetorch &
 exec pipewire
 
