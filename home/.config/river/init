@@ -64,7 +64,7 @@ riverctl map normal Super+Alt Space spawn "playerctl -p $music play-pause" &
 riverctl map normal Super+Alt Left spawn "playerctl -p $music previous" &
 riverctl map normal Super+Alt Right spawn "playerctl -p $music next" &
 riverctl map normal Super+Alt 1 spawn "~/.local/bin/pamixer-default-sink.sh Groove" &
-riverctl map normal Super+Alt 2 spawn "~/.local/bin/pamixer-default-sink.sh Starship" &
+riverctl map normal Super+Alt 2 spawn "~/.local/bin/pamixer-default-sink.sh 'On-board'" &
 riverctl map normal None XF86AudioLowerVolume spawn "~/.local/bin/pamixer-volume.sh decrease" &
 riverctl map normal None XF86AudioRaiseVolume spawn "~/.local/bin/pamixer-volume.sh increase" &
 riverctl map normal None XF86AudioMute spawn "~/.local/bin/pamixer-volume.sh toggle-mute" &
