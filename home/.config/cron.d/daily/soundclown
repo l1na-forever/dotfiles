@@ -1,0 +1,7 @@
+#!/bin/zsh
+LOG="/var/log/soundclown.log"
+source $HOME/.profile
+echo "[$(date)] Started soundclown sync" >> $LOG
+~/.local/bin/soundclown.sh >> $LOG 2>&1
+echo "[$(date)] Finished soundclown sync" >> $LOG
+
