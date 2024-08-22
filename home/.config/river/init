@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# theme refresh ideas
+# new font
+# tweaked colors
+# new notifications
+# theme file manager/new icons
+
 # Color Scheme
 #
 # https://colorbox.io/?c0=%26p%24s%24%3D11%26p%24h%24st%24%3D144%26p%24h%24e%24%3D328%26p%24h%24c%24%3Deqo%26p%24sa%24st%24%3D0.16%26p%24sa%24e%24%3D1%26p%24sa%24r%24%3D1%26p%24sa%24c%24%3Deqo%26p%24b%24st%24%3D0.9%26p%24b%24e%24%3D0.52%26p%24b%24c%24%3Dequi%26o%24n%24%3DBlue%26o%24ms%24%3D0%2C1%26o%24ro%24%3Dcw
@@ -64,13 +70,17 @@ riverctl map normal Super+Alt Space spawn "playerctl -p $music play-pause" &
 riverctl map normal Super+Alt Left spawn "playerctl -p $music previous" &
 riverctl map normal Super+Alt Right spawn "playerctl -p $music next" &
 riverctl map normal Super+Alt 1 spawn "~/.local/bin/pamixer-default-sink.sh Groove" &
-riverctl map normal Super+Alt 2 spawn "~/.local/bin/pamixer-default-sink.sh 'On-board'" &
+riverctl map normal Super+Alt 2 spawn "~/.local/bin/pamixer-default-sink.sh 'Starship'" &
+riverctl map normal Super+Alt 3 spawn "~/.local/bin/pamixer-default-sink.sh 'WH-1000XM5'" &
 riverctl map normal None XF86AudioLowerVolume spawn "~/.local/bin/pamixer-volume.sh decrease" &
 riverctl map normal None XF86AudioRaiseVolume spawn "~/.local/bin/pamixer-volume.sh increase" &
 riverctl map normal None XF86AudioMute spawn "~/.local/bin/pamixer-volume.sh toggle-mute" &
-riverctl map normal None XF86AudioPlay spawn "playerctl -p $music play-pause" &
-riverctl map normal None XF86AudioPrev spawn "playerctl -p $music previous" &
-riverctl map normal None XF86AudioNext spawn "playerctl -p $music next" &
+# riverctl map normal None XF86AudioPlay spawn "playerctl -p $music play-pause" &
+# riverctl map normal None XF86AudioPrev spawn "playerctl -p $music previous" &
+# riverctl map normal None XF86AudioNext spawn "playerctl -p $music next" &
+riverctl map normal None XF86AudioPlay spawn "playerctl play-pause" &
+riverctl map normal None XF86AudioPrev spawn "playerctl previous" &
+riverctl map normal None XF86AudioNext spawn "playerctl next" &
 
 # Screenshot Keybindings
 riverctl map normal None Print          spawn "grimshot.sh" & 
@@ -97,8 +107,8 @@ riverctl map normal Super+Shift Tab send-to-output next &
 # Tiling Keybinds
 riverctl map normal Super J       send-layout-cmd rivercarro "main-ratio -0.05" &
 riverctl map normal Super K       send-layout-cmd rivercarro "main-ratio +0.05" &
-riverctl map normal Super+Shift J send-layout-cmd rivercarro "main-count +1" &
-riverctl map normal Super+Shift K send-layout-cmd rivercarro "main-count -1" &
+#riverctl map normal Super+Shift J send-layout-cmd rivercarro "main-count +1" &
+#riverctl map normal Super+Shift K send-layout-cmd rivercarro "main-count -1" &
 riverctl map normal Super Up      send-layout-cmd rivercarro "main-location top" &
 riverctl map normal Super Right   send-layout-cmd rivercarro "main-location right" &
 riverctl map normal Super Down    send-layout-cmd rivercarro "main-location bottom" &
@@ -159,6 +169,9 @@ riverctl float-filter-add app-id "imv" &
 
 # Set default layout namespace; layout manager started with runit
 riverctl default-layout rivercarro
+
+# set cursor theme and size
+riverctl xcursor-theme "Adwaita" 28 
 
 # Set up environment variables to be plumbed through to apps launched in river
 export_dbus_variables() {
