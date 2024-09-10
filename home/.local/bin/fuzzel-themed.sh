@@ -7,10 +7,11 @@ fuzzel \
     --vertical-pad 16 \
     --inner-pad 12 \
     --lines 8 \
-    --prompt "  $ " \
+    --prompt "$ " \
     --line-height "48px" \
     --background "222222dd" \
     --text-color "eeeeeeff" \
+    --input-color "eeeeeeff" \
     --match-color "5dbab2ff" \
     --selection-color "b62be0ff" \
     --selection-text-color "282828ff" \
