@@ -14,12 +14,24 @@ if [[ -z "$1" || -z "$2" ]]; then
 	exit 1
 fi
 
-input="$1"
-output="$2"
 
-ffmpeg -i "$input" \
-			 -c:v libx264 \
-			 -c:a copy \
-			 -preset slow \
-			 -crf 24 \
-			 "$output"
+encode() 
+{
+	input="$1"
+	output="$2"
+	crf="$3"
+
+	ffmpeg -i "$input" \
+				 -c:v libx264 \
+				 -c:a libfdk_aac \
+				 -b:a 192k \
+				 -pix_fmt yuv420p \
+				 -movflags +faststart \
+				 -preset slow \
+				 -crf "$crf" \
+				 -vf "scale=1920:-2" \
+				 "$output"
+}
+
+encode "$1" "$2" "24"
+

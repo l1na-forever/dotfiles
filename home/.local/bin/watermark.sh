@@ -19,9 +19,11 @@ watermark="$2"
 output="$3"
 
 _PADDING="25"
-_SCALE="35"
+_SCALE="17"
+_ALPHA="40"
 
 composite -gravity "SouthEast" \
+					-dissolve "$_ALPHA" \
           -geometry "$_SCALE%x$_SCALE%+$_PADDING+$_PADDING" \
           "$watermark" "$input" "$output"
 exiftool -overwrite_original_in_place -All= "$output"

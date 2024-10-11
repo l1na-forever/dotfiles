@@ -28,5 +28,6 @@ ffmpeg -i "$input" \
 			 -c:v libx264 \
 			 -c:a copy \
 			 -preset slow \
-			 -crf 28 \
+			 -movflags +faststart \
+			 -crf 24 \
 			 "$output"

@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eo pipefail
+set -x
 
 die() { echo "$*" 1>&2 ; exit 1; }
 
@@ -60,10 +61,10 @@ get_favorites_page() {
 # $1: single track's JSON (from .collection[i].track)
 archive_track() {
   track_id=$(echo $1 | jq -r '.id')
-  artwork_url=$(echo $1 | jq -r 'if (.artwork_url == "" or .artwork_url == null or .artwork_url == "null") then "" else .artwork_url end' | sed 's/-large.jpg/-t500x500.jpg/')
+  artwork_url=$(echo $1 | jq -r 'if (.artwork_url == "" or .artwork_url == null) then "" else .artwork_url end' | sed 's/-large.jpg/-t500x500.jpg/')
   permalink_url=$(echo $1 | jq -r '.permalink_url')
 
-  artist=$(echo $1 | jq -r 'if (.user.full_name == "" or .user.full_name == null) then .user.username else .user.fullname end')
+  artist=$(echo $1 | jq -r 'if (.user.full_name == "" or .user.full_name == null) then .user.username else .user.full_name end')
   description=$(echo $1 | jq -r '.description')
   title=$(echo $1 | jq -r '.title')
 
@@ -72,7 +73,7 @@ archive_track() {
   # fetch track and artwork to temporary directory
   download_dir=$(mktemp -d)
   track_path="$download_dir/$track_id.mp3"
-  yt-dlp -o "$track_path" "$permalink_url"
+  yt-dlp --max-filesize 100M -o "$track_path" "$permalink_url"
   if [[ -n "$artwork_url" ]]; then
     artwork_path="$download_dir/$track_id.jpg"
     curl -s -o "$artwork_path" --compressed "$artwork_url" 
@@ -101,8 +102,8 @@ archive_track() {
 # $1: single track's JSON (from .collection[i].track)
 track_filename() {
   track_id=$(echo $1 | jq -r '.id')
-  artist=$(echo $1 | jq -r 'if (.user.full_name == "" or .user.full_name == null) then .user.username else .user.full_name end' | iconv -f utf-8 -t us-ascii//TRANSLIT)
-  title=$(echo $1 | jq -r '.title' | iconv -f utf-8 -t us-ascii//TRANSLIT)
+  artist=$(echo $1 | jq -r '.user.permalink' | iconv -f utf-8 -t us-ascii//TRANSLIT)
+  title=$(echo $1 | jq -r '.permalink' | iconv -f utf-8 -t us-ascii//TRANSLIT)
 
   echo "$artist - $title - $track_id.mp3" | sed -e 's/[^A-Za-z0-9._ \(\)-]/_/g'
 }
