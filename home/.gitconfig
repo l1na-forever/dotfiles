@@ -16,7 +16,7 @@
 [core]
     excludesfile = ~/.gitignore
     quotepath = false
-    editor = vim
+    editor = hx
     pager = delta
 
 [interactive]
@@ -32,7 +32,7 @@
     ff = only
 
 [merge]
-    #tool = meld
+    tool = meld
     conflictstyle = diff3
 
 [diff]
@@ -44,3 +44,5 @@
 
 [init]
 	defaultBranch = main
+[pager]
+	show = false
