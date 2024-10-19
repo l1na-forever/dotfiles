@@ -102,7 +102,7 @@ riverctl map normal Super L         focus-view next &
 riverctl map normal Super+Shift H   swap previous &
 riverctl map normal Super+Shift L   swap next &
 riverctl map normal Super Tab       focus-output next &
-riverctl map normal Super+Shift Tab send-to-output next &
+riverctl map normal Super+Shift Tab send-to-output -current-tags next &
 
 # Tiling Keybinds
 riverctl map normal Super J       send-layout-cmd rivercarro "main-ratio -0.05" &
