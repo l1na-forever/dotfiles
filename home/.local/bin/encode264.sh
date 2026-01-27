@@ -23,7 +23,7 @@ encode()
 
 	ffmpeg -i "$input" \
 				 -c:v libx264 \
-				 -c:a libfdk_aac \
+				 -c:a aac \
 				 -b:a 192k \
 				 -pix_fmt yuv420p \
 				 -movflags +faststart \

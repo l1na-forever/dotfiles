@@ -1,8 +1,12 @@
 profile {
-	output DP-1 enable scale 2 position 0,0 
-	output DP-3 enable scale 2 position 1920,0
+	output DP-1 enable scale 2 position 0,0 mode "3840x2160@160Hz" 
+	output DP-3 enable scale 2 position 1920,0 mode "3840x2160@160Hz"
 }
 
 profile {
-	output DP-3 enable scale 2 position 0,0
+	output DP-1 enable scale 2 position 0,0 mode "3840x2160@160Hz" 
+}
+
+profile {
+	output DP-3 enable scale 2 position 0,0 mode "3840x2160@160Hz" 
 }
