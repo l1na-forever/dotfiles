@@ -24,6 +24,7 @@ C-s = ":w"
 "{" = "goto_prev_paragraph"
 "}" = "goto_next_paragraph"
 C-r = ":reflow 81"
+A-r = ":rl"
 
 [keys.insert]
 C-c = "normal_mode"

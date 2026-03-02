@@ -12,6 +12,9 @@
     dump = cat-file -p
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     ls = ls-tree --full-tree -r 
+    dlog = -c diff.external=difft log --ext-diff
+    dshow = -c diff.external=difft show --ext-diff
+    ddiff = -c diff.external=difft diff
 
 [core]
     excludesfile = ~/.gitignore
@@ -41,6 +44,10 @@
 [delta]
     navigate = true
     light = false
+
+[merge "mergiraf"]
+    name = mergiraf
+    driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P
 
 [init]
 	defaultBranch = main
